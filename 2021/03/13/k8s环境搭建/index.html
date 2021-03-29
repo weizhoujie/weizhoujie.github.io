@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kubernetes," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1. 操作系统 操作系统：centos7.6 下载地址：http:&#x2F;&#x2F;mirrors.sohu.com&#x2F;centos&#x2F;7.6.1810&#x2F;isos&#x2F;x86_64&#x2F;CentOS-7-x86_64-DVD-1810.iso  系统安装盘制作 采用UltraISO 制作系统盘，下载地址 https:&#x2F;&#x2F;www.onlinedown.net&#x2F;soft&#x2F;614.htm 制作以及安装流程：https:&#x2F;&#x2F;www">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s环境搭建">
+<meta property="og:url" content="http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="1. 操作系统 操作系统：centos7.6 下载地址：http:&#x2F;&#x2F;mirrors.sohu.com&#x2F;centos&#x2F;7.6.1810&#x2F;isos&#x2F;x86_64&#x2F;CentOS-7-x86_64-DVD-1810.iso  系统安装盘制作 采用UltraISO 制作系统盘，下载地址 https:&#x2F;&#x2F;www.onlinedown.net&#x2F;soft&#x2F;614.htm 制作以及安装流程：https:&#x2F;&#x2F;www">
+<meta property="og:locale">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/image2020-8-31_14-32-46.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313171304.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313171504.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313171602.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313171901.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313172410.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313172609.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210313174523.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327154729.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327154824.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327154924.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327155146.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327155311.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327155803.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327155855.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327155940.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327160139.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327160215.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327160629.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327160755.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327160821.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327160918.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161156.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161247.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161311.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161530.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161709.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161737.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161901.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327161948.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327162020.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327162059.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210327162130.png">
+<meta property="article:published_time" content="2021-03-13T07:37:25.000Z">
+<meta property="article:modified_time" content="2021-03-27T08:21:49.678Z">
+<meta property="article:author" content="魏周杰">
+<meta property="article:tag" content="kubernetes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/weizhoujie/images/raw/master/image2020-8-31_14-32-46.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://weizhoujie.github.io/2021/03/13/k8s环境搭建/"/>
+
+
+
+
+
+  <title>k8s环境搭建 | 个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="魏周杰">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">k8s环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-13T15:37:25+08:00">
+                2021-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">运维</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-操作系统"><a href="#1-操作系统" class="headerlink" title="1. 操作系统"></a>1. 操作系统</h2><ul>
+<li><p>操作系统：centos7.6</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://mirrors.sohu.com/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso">http://mirrors.sohu.com/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso</a></p>
+</li>
+<li><p>系统安装盘制作</p>
+<p>采用UltraISO 制作系统盘，下载地址 <a target="_blank" rel="noopener" href="https://www.onlinedown.net/soft/614.htm">https://www.onlinedown.net/soft/614.htm</a></p>
+<p>制作以及安装流程：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhuimengdeyuanyuan/p/13440561.html">https://www.cnblogs.com/zhuimengdeyuanyuan/p/13440561.html</a></p>
+<a id="more"></a>
+<h2 id="2-环境准备"><a href="#2-环境准备" class="headerlink" title="2. 环境准备"></a>2. 环境准备</h2></li>
+</ul>
+<p>可以使用物理服务器，没有也可用虚拟机代替，需要设置处理器&gt;=2，关于VMWare虚拟机及设置静态ip可以参考文章 <a target="_blank" rel="noopener" href="https://blog.csdn.net/tiandixuanwuliang/article/details/81283316">https://blog.csdn.net/tiandixuanwuliang/article/details/81283316</a></p>
+<p>开始环境准备，<font color=red size=3>需要在所有节点进行下面的操作</font></p>
+<ul>
+<li><p>设置主机名 hostname，管理节点设置主机名为 master</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname master</span><br></pre></td></tr></table></figure>
+<p>需要设置其他主机名称时，可将 master 替换为正确的主机名node1、node2即可</p>
+</li>
+<li><p>编辑 /etc/hosts文件，添加解析</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/image2020-8-31_14-32-46.png"></p>
+</li>
+</ul>
+<p>如果有多个节点，把其他的ip hostname加上，每台机器上都如此</p>
+<ul>
+<li><p>关闭防火墙、selinux和swap</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line"></span><br><span class="line">setenforce 0</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">&quot;s/^SELINUX=enforcing/SELINUX=disabled/g&quot;</span> /etc/selinux/config </span><br><span class="line"></span><br><span class="line">swapoff -a</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">&#x27;s/.*swap.*/#&amp;/&#x27;</span> /etc/fstab</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210313171304.png"></p>
+</li>
+<li><p>配置内核参数，将桥接的IPv4流量传递到iptables的链</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.d/k8s.conf</span><br><span class="line"></span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210313171504.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210313171602.png"></p>
+</li>
+<li><p>配置国内yum源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br><span class="line"></span><br><span class="line">mkdir /etc/yum.repos.d/bak &amp;&amp; mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/bak</span><br><span class="line"></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/centos7_base.repo</span><br><span class="line"></span><br><span class="line">wget -O /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo</span><br><span class="line"></span><br><span class="line">yum clean all &amp;&amp; yum makecache</span><br></pre></td></tr></table></figure></li>
+<li><p>配置国内Kubernetes源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/kubernetes.repo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[kubernetes]</span><br><span class="line"></span><br><span class="line">name=Kubernetes</span><br><span class="line"></span><br><span class="line">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line"></span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">gpgcheck=1</span><br><span class="line"></span><br><span class="line">repo_gpgcheck=1</span><br><span class="line"></span><br><span class="line">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpghttps://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210313171901.png"></p>
+</li>
+<li><p>配置 docker 源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<h2 id="3-软件安装"><a href="#3-软件安装" class="headerlink" title="3. 软件安装"></a>3. 软件安装</h2><p><font color=red size=3>需要在所有节点进行下面的操作</font></p>
+</li>
+<li><p>安装 docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce-18.06.1.ce-3.el7 </span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> docker &amp;&amp; systemctl start docker</span><br><span class="line"></span><br><span class="line">docker --version</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210313172410.png"></p>
+</li>
+<li><p>安装kubeadm、kubelet、kubectl</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y kubelet-1.18.8 kubeadm-1.18.8 kubectl-1.18.8 </span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> kubelet</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210313172609.png"></p>
+</li>
+</ul>
+<p>Kubelet负责与其他节点集群通信，并进行本节点Pod和容器生命周期的管理。Kubeadm是Kubernetes的自动化部署工具，降低了部署难度，提高效率。Kubectl是Kubernetes集群管理工具</p>
+<h2 id="4-部署master节点"><a href="#4-部署master节点" class="headerlink" title="4. 部署master节点"></a>4. 部署master节点</h2><p><font color=red size=3>在master节点上进行如下操作</font></p>
+<ul>
+<li>在master进行Kubernetes集群初始化<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --kubernetes-version=1.18.1 \</span><br><span class="line"></span><br><span class="line">--apiserver-advertise-address=192.168.11.188 \</span><br><span class="line"></span><br><span class="line">--image-repository registry.aliyuncs.com/google_containers \</span><br><span class="line"></span><br><span class="line">--service-cidr=192.1.0.0/16 --pod-network-cidr=10.244.0.0/16</span><br></pre></td></tr></table></figure>
+注意以上是一条命令，定义POD的网段为: 10.244.0.0/16， api server地址就是master本机IP地址，<br>这一步很关键，由于kubeadm 默认从官网k8s.grc.io下载所需镜像，国内无法访问，因此需要通过–image-repository指定阿里云镜像仓库地址</li>
+</ul>
+<p>运行命令，集群初始化成功后返回如下信息：<br><img src="https://gitee.com/weizhoujie/images/raw/master/20210313174523.png"></p>
+<p>初始化成功后会提示在使用之前需要再配置一下，配置方法已经给出，另外会生成一个临时token以及增加节点的方法，红框中就是节点加入集群执行的命令</p>
+<p><font color=red size=3>ps：如果提示This is not a supported version skew and may lead to a malfunctional cluster. Kubelet version: “1.19.0” Control plane version: “1.18.1” 说明版本不匹配，可以指定kubernetes-version更高版本，或者卸载安装的kubelet，指定kubelet版本安装</font></p>
+<ul>
+<li>配置kubectl工具</li>
+</ul>
+<p>普通用户要使用k8s 需要执行下面操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p <span class="variable">$HOME</span>/.kube</span><br><span class="line"></span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf <span class="variable">$HOME</span>/.kube/config</span><br><span class="line"></span><br><span class="line">sudo chown $(id -u):$(id -g) <span class="variable">$HOME</span>/.kube/config</span><br></pre></td></tr></table></figure>
+<p>如果是root 可以直接执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> KUBECONFIG=/etc/kubernetes/admin.conf</span><br></pre></td></tr></table></figure>
+<p>现在我们查看一下 kubelet 的状态 已经是 running 状态 ，启动成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status kubelet.service</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327154729.png"></p>
+<p>我们再查看每个组件的，确保每个都是Healthy状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get cs</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327154824.png"></p>
+<p>可以看到有两个是unhealthy，接下来需要做一些修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/kubernetes/manifests/kube-scheduler.yaml</span><br><span class="line"></span><br><span class="line">vim /etc/kubernetes/manifests/kube-controller-manager.yaml</span><br></pre></td></tr></table></figure>
+<p>将两个yaml文件的port=0删掉<br><img src="https://gitee.com/weizhoujie/images/raw/master/20210327154924.png"></p>
+<p>然后执行<code>systemctl restart kubelet</code>，重新启动</p>
+<p>接下来我们再使用<code>kubectl get cs</code>查看一下状态，可以看见已经ok<br><img src="https://gitee.com/weizhoujie/images/raw/master/20210327155146.png"></p>
+<ul>
+<li>部署flannel网络</li>
+</ul>
+<p>在没有部署之前，我们先来看一下节点状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327155311.png"></p>
+<p>可以看见是NotReady，接下来我们安装flannel</p>
+<p>安装需下载镜像 quay.io/coreos/flannel:v0.12.0-amd64 ，版本可能会变，可以查看kube-flannel.yml文件里的images，quay.io网站国内无法访问</p>
+<p>如果机器不能翻墙，可以采用下面这个方法，去github上手动下载docker镜像</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/coreos/flannel/releases">https://github.com/coreos/flannel/releases</a><br><img src="https://gitee.com/weizhoujie/images/raw/master/20210327155803.png"></p>
+<p><code>docker load &lt; flanneld-v0.12.0-amd64.docker</code>导入镜像<br><img src="https://gitee.com/weizhoujie/images/raw/master/20210327155855.png"><br><img src="https://gitee.com/weizhoujie/images/raw/master/20210327155940.png"></p>
+<p>现在本地有这个需要的镜像了，接着我们开始安装flannel，运行下面命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</span><br></pre></td></tr></table></figure>
+<p>看下pod的状态，保证flannel是运行中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -A -o wide</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327160139.png"></p>
+<p>我们再看下节点状态，保证是Ready</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327160215.png"></p>
+<h2 id="5-加入node节点"><a href="#5-加入node节点" class="headerlink" title="5. 加入node节点"></a>5. 加入node节点</h2><p>说明一下，因为只有一台机器，本文档操作是单机部署，关于加入节点是我在两台虚拟机上的操作，所以截图里面的ip不是上面的master</p>
+<p>首先在前面标红色的字体说明了需要在所有节点进行的操作，在有了这些环境后，节点可以使用以下命令加入集群</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.25.11:6443 --token mwi3wm.xr6x3bq4mtg5nqnv  --discovery-token-ca-cert-hash sha256:321112e0aa14422ea5629bd168407f9dfb0b1dd0a4c078eda745ed347d3134d3</span><br></pre></td></tr></table></figure>
+<p>这句命令在master初始化成功后会返回<br><img src="https://gitee.com/weizhoujie/images/raw/master/20210327160629.png"></p>
+<p>如果增加节点时token过期，可以重新生成token，在master进行如下操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create</span><br><span class="line"></span><br><span class="line">kubeadm token list</span><br></pre></td></tr></table></figure>
+<p>节点加入集群后可以在master上查看一下</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327160755.png"></p>
+<p>若想在加入的那个节点上使用kubectl命令，会出现如下错误</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327160821.png"></p>
+<p>需要把 master 上 /etc/kubernetes/admin.conf 文件copy到节点机器上并使用<code>export KUBECONFIG=/etc/kubernetes/admin.conf</code></p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327160918.png"></p>
+<h2 id="6-部署服务"><a href="#6-部署服务" class="headerlink" title="6. 部署服务"></a>6. 部署服务</h2><p>master 这台机器不允许创建pod ,想要在master上创建pod ,实现k8s单点部署可以执行下面操作</p>
+<p>先查看一下 master这台机器是否允许创建Pod</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe node master | grep Taint</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161156.png"></p>
+<p>现在允许 master创建 pod</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes master node-role.kubernetes.io/master-</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161247.png"></p>
+<p>我们再来查看一下是否允许创建pod</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161311.png"></p>
+<p>若想恢复到master上禁止创建Pod,可以执行下面操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes master node-role.kubernetes.io/master=:NoSchedul</span><br></pre></td></tr></table></figure>
+<p>现在master上可以创建pod了，我们需要pull镜像运行，一般都是私人仓库，这里先配置一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login --username=xxxxxx registry.cn-beijing.aliyuncs.com </span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161530.png"></p>
+<p>创建一个Secret来保存你的验证口令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret docker-registry dockercfg-192 --docker-server=registry.cn-beijing.aliyuncs.com --docker-username=username --docker-password=password</span><br><span class="line"></span><br><span class="line"><span class="comment">#docker-server 是你的私有仓库</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#docker-username 是你的 Docker 用户名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#docker-password 是你的 Docker 密码</span></span><br></pre></td></tr></table></figure>
+<p>查看创建的dockercfg-192</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secret |grep dockercfg-192</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161709.png"></p>
+<p>现在我们来创建一个pod，新建一个yaml文件</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161737.png"></p>
+<p>创建服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f doc.yaml</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161901.png"></p>
+<p>看下刚才创建的pod</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -A -o wide</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327161948.png"></p>
+<p>接着我们来看下service，可以看到doc-service</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327162020.png"></p>
+<p>因为在yaml文件里面没有指定端口，随机给我们分配了30317,可以用nodeport外部访问</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327162059.png"></p>
+<p>在集群内部可以通过上图中的CLUSTER-IP + port访问</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210327162130.png"></p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+	  <div>
+        
+          
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">k8s环境搭建</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 魏周杰 的个人博客">魏周杰</a></p>
+  <p><span>发布时间:</span>2021年03月13日 - 15:03</p>
+  <p><span>最后更新:</span>2021年03月27日 - 16:03</p>
+  <p><span>原始链接:</span><a href="/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="k8s环境搭建">http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+        
+	  </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes/" rel="tag"><i class="fa fa-tag"></i> kubernetes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/12/nginx/" rel="next" title="nginx自动补全“/”重定向后端口丢失">
+                <i class="fa fa-chevron-left"></i> nginx自动补全“/”重定向后端口丢失
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.JPG"
+                alt="魏周杰" />
+            
+              <p class="site-author-name" itemprop="name">魏周杰</p>
+              <p class="site-description motion-element" itemprop="description">永远相信美好的事情即将发生</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/weizhoujie" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jasonwei9791@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/6121819478" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="baidu" target="_blank">baidu</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.google.com" title="google" target="_blank">google</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">1. 操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">2. 环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">3. 软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%83%A8%E7%BD%B2master%E8%8A%82%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">4. 部署master节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8A%A0%E5%85%A5node%E8%8A%82%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">5. 加入node节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">6. 部署服务</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">魏周杰</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">3.2k</span>
+  
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共3.2k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<!-- 樱花特效 -->
+  
+      <script async src="/js/src/fairyDustCursor.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>个人博客</title>
+  
+  
+  <link href="http://weizhoujie.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://weizhoujie.github.io/"/>
+  <updated>2021-03-27T08:21:49.678Z</updated>
+  <id>http://weizhoujie.github.io/</id>
+  
+  <author>
+    <name>魏周杰</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>k8s环境搭建</title>
+    <link href="http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
+    <published>2021-03-13T07:37:25.000Z</published>
+    <updated>2021-03-27T08:21:49.678Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;1-操作系统&quot;&gt;&lt;a href=&quot;#1-操作系统&quot; class=&quot;headerlink&quot; title=&quot;1. 操作系统&quot;&gt;&lt;/a&gt;1. 操作系统&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;操作系统：centos7.6&lt;/p&gt;
+&lt;p&gt;下载地址：&lt;a href=&quot;http://mirrors.sohu.com/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso&quot;&gt;http://mirrors.sohu.com/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;系统安装盘制作&lt;/p&gt;
+&lt;p&gt;采用UltraISO 制作系统盘，下载地址 &lt;a href=&quot;https://www.onlinedown.net/soft/614.htm&quot;&gt;https://www.onlinedown.net/soft/614.htm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;制作以及安装流程：&lt;a href=&quot;https://www.cnblogs.com/zhuimengdeyuanyuan/p/13440561.html&quot;&gt;https://www.cnblogs.com/zhuimengdeyuanyuan/p/13440561.html&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="运维" scheme="http://weizhoujie.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="kubernetes" scheme="http://weizhoujie.github.io/tags/kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx自动补全“/”重定向后端口丢失</title>
+    <link href="http://weizhoujie.github.io/2021/03/12/nginx/"/>
+    <id>http://weizhoujie.github.io/2021/03/12/nginx/</id>
+    <published>2021-03-12T08:16:38.000Z</published>
+    <updated>2021-03-12T09:12:01.887Z</updated>
+    
+    
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;当访问的uri最后不带斜杠时，例如 &lt;a href=&quot;http://localhost/product&quot;&gt;http://localhost/product&lt;/a&gt; ，会先查找 product 文件，存在就返回；若存在 product 文件夹，会在末尾加上一个斜杠并产生 301 跳转&lt;/li&gt;
+&lt;li&gt;当访问的uri最后带斜杠时，例如 &lt;a href=&quot;http://localhost/product/%EF%BC%8C%E6%9F%A5%E6%89%BE&quot;&gt;http://localhost/product/，查找&lt;/a&gt; product 下的 index 页面，存在就返回；不存在且未开启自动索引目录选项（autoindex on）则报 403 错误&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在第一种情况，访问带目录的url时，如果末尾不加斜杠(“/“)，nginx默认会加上斜杠，发生一次301跳转，但这个默认行为在nginx前端有LB负载均衡器、且LB监听的端口与nginx server监听的端口不同时会导致访问出错。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="运维" scheme="http://weizhoujie.github.io/categories/%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="nginx" scheme="http://weizhoujie.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>k8s的容器监测探针</title>
+    <link href="http://weizhoujie.github.io/2021/02/09/k8s/"/>
+    <id>http://weizhoujie.github.io/2021/02/09/k8s/</id>
+    <published>2021-02-09T08:59:24.000Z</published>
+    <updated>2021-02-09T09:37:52.013Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;k8s的容器监测探针&quot;&gt;&lt;a href=&quot;#k8s的容器监测探针&quot; class=&quot;headerlink&quot; title=&quot;k8s的容器监测探针&quot;&gt;&lt;/a&gt;k8s的容器监测探针&lt;/h1&gt;&lt;p&gt;大部分的应用程序我们在部署的时候都会适当的添加监控，对于运行载体容器则更应该如此。kubernetes提供了 liveness probes来检查我们的应用程序。它是由节点上的kubelet定期执行的。  &lt;/p&gt;
+&lt;p&gt;首先说一下Pod的整个生命阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Pending&lt;/strong&gt;：表示集群系统正在创建Pod，但是Pod中的container还没有全部被创建，这其中也包含集群为container创建网络，或者下载镜像的时间  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Running&lt;/strong&gt;：表示pod已经运行在一个节点商量，并且所有的container都已经被创建。但是并不代表所有的container都运行，它仅仅代表至少有一个container是处于运行的状态或者进程出于启动中或者重启中  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Succeeded&lt;/strong&gt;：所有Pod中的container都已经终止成功，并且没有处于重启的container</summary>
+    
+    
+    
+    <category term="云原生" scheme="http://weizhoujie.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"/>
+    
+    
+    <category term="kubernetes" scheme="http://weizhoujie.github.io/tags/kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://weizhoujie.github.io/2021/02/09/hello-world/"/>
+    <id>http://weizhoujie.github.io/2021/02/09/hello-world/</id>
+    <published>2021-02-09T00:52:44.204Z</published>
+    <updated>2021-02-09T00:52:44.204Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
