@@ -402,58 +402,16 @@
 
       
         
-          
-            <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>在 Kubernetes 社区中，有一个很受欢迎的 Dashboard 项目，它可以给用户提供一个可视化的 Web 界面来查看当前集群的各种信息。用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。</p>
+          <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>在 Kubernetes 社区中，有一个很受欢迎的 Dashboard 项目，它可以给用户提供一个可视化的 Web 界面来查看当前集群的各种信息。用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。</p>
 <p>官方参考文档：<br><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/">https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/</a></p>
 <p>github项目地址：<br><a target="_blank" rel="noopener" href="https://github.com/kubernetes/dashboard">https://github.com/kubernetes/dashboard</a></p>
-<p>当前部署dashboard版本：v2.0.1，注意检查dashboard版本与kubernetes版本兼容性：<br><a target="_blank" rel="noopener" href="https://github.com/kubernetes/dashboard/releases">https://github.com/kubernetes/dashboard/releases</a></p>
-<h2 id="2-部署"><a href="#2-部署" class="headerlink" title="2. 部署"></a>2. 部署</h2><p>我们先把yaml文件下载下来</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml</span><br></pre></td></tr></table></figure>
-<p>修改配置，可以在集群外部访问，找到kubernetes-dashboard的service，添加type: NodePort ，这里我指定的nodePort是30001</p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618154040.png"></p>
-<p><code>kubectl apply -f dashboard.yaml</code>创建这个资源</p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618154524.png"></p>
-<p>查看一下服务是否启动</p>
-<p><code>kubectl get pod -A -o wide</code></p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618154634.png"></p>
-<p><code>kubectl get svc -A</code></p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618154707.png"></p>
-<p>可以看到服务已经是正常启动了</p>
-<h2 id="3-访问认证"><a href="#3-访问认证" class="headerlink" title="3.访问认证"></a>3.访问认证</h2><p>Dashboard 支持 Kubeconfig 和 Token 两种认证方式，我们这里选择Token认证方式登录</p>
-<p>新建文件dashboard-adminuser.yaml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">admin-user</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kubernetes-dashboard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">admin-user</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-admin</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">admin-user</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kubernetes-dashboard</span></span><br></pre></td></tr></table></figure>
-<p>创建这个资源<code>kubectl apply -f dashboard-adminuser.yaml</code></p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618155126.png"></p>
-<p>说明：上面创建了一个叫admin-user的服务账号，并放在kubernetes-dashboard 命名空间下，并将cluster-admin角色绑定到admin-user账户，这样admin-user账户就有了管理员的权限。默认情况下，kubeadm创建集群时已经创建了cluster-admin角色，我们直接绑定即可。</p>
-<p>查看admin-user账户的token</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618160956.png"></p>
-<p>可以看到有一个token，用于dashboard登录，刚才我们修改了文件，指定了30001端口，现在我们来访问一下，注意这里要用<a href="https://ip:nodePort,而且要用Firefox浏览器，Chrome">https://ip:nodePort,而且要用Firefox浏览器，Chrome</a> 58以上就不行，如果一定要用Chrome，网上有相关文章</p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618161050.png"></p>
-<p>访问是这个样子，点击高级-接受风险并继续，输入上面的token登录。进去后可以看见k8s的控制台了</p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618161211.png"></p>
-<h2 id="4-增加资源使用率"><a href="#4-增加资源使用率" class="headerlink" title="4.增加资源使用率"></a>4.增加资源使用率</h2><p>可以看到CPU和内存的使用率没有显示，因为需要安装metrics-server，接下来我们再进行如下操作，从git上下载metrics-service代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/kubernetes-incubator/metrics-server/archive/v0.3.3.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压后修改metrics-server-0.3.3/deploy/1.8+/metrics-server-deployment.yaml，追加位置和内容如下：deployment.spec.template.spec.containers.command</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">command:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/metrics-server</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">--kubelet-insecure-tls</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">--kubelet-preferred-address-types=InternalDNS,InternalIP,ExternalDNS,ExternalIP,Hostname</span></span><br></pre></td></tr></table></figure>
-<p>修改几处地方</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span>    </span><br><span class="line"></span><br><span class="line"><span class="attr">images:</span> <span class="string">k8s.gcr.io/metrics-server-amd64:v0.3.3</span>    </span><br><span class="line"></span><br><span class="line"><span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618161628.png"></p>
-<p>这个镜像可能因为墙的原因拉不下来，可以用下面的方法拉到本地</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://www.zhangguanzhang.com/pull | bash -s -- k8s.gcr.io/metrics-server-amd64:v0.3.3</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618161824.png"></p>
-<p>查看一下本地是否有这个镜像</p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618161922.png"></p>
-<p>接下来就可以部署metrics-server，换成自己的文件路径</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f /usr/<span class="built_in">local</span>/k8s_pod/dashboard/metrics-server-0.3.3/deploy/1.8+/</span><br></pre></td></tr></table></figure>
-<p>创建成功后可以使用top查看一下是否有资源信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl top pod -A</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618162123.png"></p>
-<p>可以看到已经有资源使用情况了，再看看dashboard</p>
-<p><img src="https://gitee.com/weizhoujie/images/raw/master/20210618162218.png"></p>
-<p>到此就大功告成了，see you again!</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/06/18/k8s-dashboard/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
