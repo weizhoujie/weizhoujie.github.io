@@ -88,32 +88,25 @@
 
 
 
-<meta name="description" content="1. 简介在 Kubernetes 社区中，有一个很受欢迎的 Dashboard 项目，它可以给用户提供一个可视化的 Web 界面来查看当前集群的各种信息。用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。 官方参考文档：https:&#x2F;&#x2F;kubernetes.io&#x2F;docs&#x2F;tasks&#x2F;access-a">
+<meta name="description" content="当我们使用kubectl delete ns xxx命令删除命名空间后发现删不掉，显示是Terminating状态  再次尝试kubectl delete ns xxx删除提示删除操作未能完成，说系统会在确定没用资源后将会被自动删除 解决方案1.现将要删除的namespace的描述信息导出到文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s dashboard超详细部署教程">
-<meta property="og:url" content="http://weizhoujie.github.io/2021/06/18/k8s-dashboard/index.html">
+<meta property="og:title" content="解决kubernetes删除命名空间一直Terminating">
+<meta property="og:url" content="http://weizhoujie.github.io/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="1. 简介在 Kubernetes 社区中，有一个很受欢迎的 Dashboard 项目，它可以给用户提供一个可视化的 Web 界面来查看当前集群的各种信息。用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。 官方参考文档：https:&#x2F;&#x2F;kubernetes.io&#x2F;docs&#x2F;tasks&#x2F;access-a">
+<meta property="og:description" content="当我们使用kubectl delete ns xxx命令删除命名空间后发现删不掉，显示是Terminating状态  再次尝试kubectl delete ns xxx删除提示删除操作未能完成，说系统会在确定没用资源后将会被自动删除 解决方案1.现将要删除的namespace的描述信息导出到文件">
 <meta property="og:locale">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618154040.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618154524.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618154634.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618154707.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618155126.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618160956.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618161050.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618161211.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618161628.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618161824.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618161922.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618162123.png">
-<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618162218.png">
-<meta property="article:published_time" content="2021-06-18T07:15:05.000Z">
-<meta property="article:modified_time" content="2021-06-18T08:53:04.451Z">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217140715.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217140936.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217141416.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217141747.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217142007.png">
+<meta property="og:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217142150.png">
+<meta property="article:published_time" content="2022-02-17T06:16:38.000Z">
+<meta property="article:modified_time" content="2022-02-17T06:22:30.532Z">
 <meta property="article:author" content="魏周杰">
 <meta property="article:tag" content="kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/weizhoujie/images/raw/master/20210618154040.png">
+<meta name="twitter:image" content="https://gitee.com/weizhoujie/images/raw/master/20220217140715.png">
 
 
 
@@ -143,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://weizhoujie.github.io/2021/06/18/k8s-dashboard/"/>
+  <link rel="canonical" href="http://weizhoujie.github.io/2022/02/17/k8s删除命名空间一直Terminating解决方案/"/>
 
 
 
 
 
-  <title>k8s dashboard超详细部署教程 | 个人博客</title>
+  <title>解决kubernetes删除命名空间一直Terminating | 个人博客</title>
   
 
 
@@ -295,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://weizhoujie.github.io/2021/06/18/k8s-dashboard/">
+    <link itemprop="mainEntityOfPage" href="http://weizhoujie.github.io/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="魏周杰">
@@ -312,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">k8s dashboard超详细部署教程</h1>
+          <h1 class="post-title" itemprop="name headline">解决kubernetes删除命名空间一直Terminating</h1>
         
 
         <div class="post-meta">
@@ -324,8 +317,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-18T15:15:05+08:00">
-                2021-06-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-17T14:16:38+08:00">
+                2022-02-17
               </time>
             
 
@@ -378,7 +371,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  837
+                  190
                 </span>
               
 
@@ -394,7 +387,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -415,57 +408,18 @@
       
 
       
-        <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>在 Kubernetes 社区中，有一个很受欢迎的 Dashboard 项目，它可以给用户提供一个可视化的 Web 界面来查看当前集群的各种信息。用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。</p>
-<p>官方参考文档：<br><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/">https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/</a></p>
-<p>github项目地址：<br><a target="_blank" rel="noopener" href="https://github.com/kubernetes/dashboard">https://github.com/kubernetes/dashboard</a></p>
-<p>当前部署dashboard版本：v2.0.1，注意检查dashboard版本与kubernetes版本兼容性：<br><a target="_blank" rel="noopener" href="https://github.com/kubernetes/dashboard/releases">https://github.com/kubernetes/dashboard/releases</a></p>
-<a id="more"></a>
-<h2 id="2-部署"><a href="#2-部署" class="headerlink" title="2. 部署"></a>2. 部署</h2><p>我们先把yaml文件下载下来</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml</span><br></pre></td></tr></table></figure>
-<p>修改配置，可以在集群外部访问，找到kubernetes-dashboard的service，添加type: NodePort ，这里我指定的nodePort是30001</p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618154040.png"></p>
-<p><code>kubectl apply -f dashboard.yaml</code>创建这个资源</p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618154524.png"></p>
-<p>查看一下服务是否启动</p>
-<p><code>kubectl get pod -A -o wide</code></p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618154634.png"></p>
-<p><code>kubectl get svc -A</code></p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618154707.png"></p>
-<p>可以看到服务已经是正常启动了</p>
-<h2 id="3-访问认证"><a href="#3-访问认证" class="headerlink" title="3.访问认证"></a>3.访问认证</h2><p>Dashboard 支持 Kubeconfig 和 Token 两种认证方式，我们这里选择Token认证方式登录</p>
-<p>新建文件dashboard-adminuser.yaml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">admin-user</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kubernetes-dashboard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">admin-user</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-admin</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">admin-user</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kubernetes-dashboard</span></span><br></pre></td></tr></table></figure>
-<p>创建这个资源<code>kubectl apply -f dashboard-adminuser.yaml</code></p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618155126.png"></p>
-<p>说明：上面创建了一个叫admin-user的服务账号，并放在kubernetes-dashboard 命名空间下，并将cluster-admin角色绑定到admin-user账户，这样admin-user账户就有了管理员的权限。默认情况下，kubeadm创建集群时已经创建了cluster-admin角色，我们直接绑定即可。</p>
-<p>查看admin-user账户的token</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618160956.png"></p>
-<p>可以看到有一个token，用于dashboard登录，刚才我们修改了文件，指定了30001端口，现在我们来访问一下，注意这里要用<a href="https://ip:nodePort,而且要用Firefox浏览器，Chrome">https://ip:nodePort,而且要用Firefox浏览器，Chrome</a> 58以上就不行，如果一定要用Chrome，网上有相关文章</p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618161050.png"></p>
-<p>访问是这个样子，点击高级-接受风险并继续，输入上面的token登录。进去后可以看见k8s的控制台了</p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618161211.png"></p>
-<h2 id="4-增加资源使用率"><a href="#4-增加资源使用率" class="headerlink" title="4.增加资源使用率"></a>4.增加资源使用率</h2><p>可以看到CPU和内存的使用率没有显示，因为需要安装metrics-server，接下来我们再进行如下操作，从git上下载metrics-service代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/kubernetes-incubator/metrics-server/archive/v0.3.3.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压后修改metrics-server-0.3.3/deploy/1.8+/metrics-server-deployment.yaml，追加位置和内容如下：deployment.spec.template.spec.containers.command</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">command:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/metrics-server</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">--kubelet-insecure-tls</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">--kubelet-preferred-address-types=InternalDNS,InternalIP,ExternalDNS,ExternalIP,Hostname</span></span><br></pre></td></tr></table></figure>
-<p>修改几处地方</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span>    </span><br><span class="line"></span><br><span class="line"><span class="attr">images:</span> <span class="string">k8s.gcr.io/metrics-server-amd64:v0.3.3</span>    </span><br><span class="line"></span><br><span class="line"><span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br></pre></td></tr></table></figure>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618161628.png"></p>
-<p>这个镜像可能因为墙的原因拉不下来，可以用下面的方法拉到本地</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://www.zhangguanzhang.com/pull | bash -s -- k8s.gcr.io/metrics-server-amd64:v0.3.3</span><br></pre></td></tr></table></figure>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618161824.png"></p>
-<p>查看一下本地是否有这个镜像</p>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618161922.png"></p>
-<p>接下来就可以部署metrics-server，换成自己的文件路径</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f /usr/<span class="built_in">local</span>/k8s_pod/dashboard/metrics-server-0.3.3/deploy/1.8+/</span><br></pre></td></tr></table></figure>
-<p>创建成功后可以使用top查看一下是否有资源信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl top pod -A</span><br></pre></td></tr></table></figure>
-<p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618162123.png"></p>
-<p>可以看到已经有资源使用情况了，再看看dashboard</p>
-<div align=left><img  src="https://gitee.com/weizhoujie/images/raw/master/20210618162218.png"/></div>
-
-<p>到此就大功告成了，see you again!</p>
+        <p>当我们使用kubectl delete ns xxx命令删除命名空间后发现删不掉，显示是Terminating状态</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20220217140715.png"></p>
+<p>再次尝试kubectl delete ns xxx删除<br><img src="https://gitee.com/weizhoujie/images/raw/master/20220217140936.png"><br>提示删除操作未能完成，说系统会在确定没用资源后将会被自动删除</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="1-现将要删除的namespace的描述信息导出到文件"><a href="#1-现将要删除的namespace的描述信息导出到文件" class="headerlink" title="1.现将要删除的namespace的描述信息导出到文件"></a>1.现将要删除的namespace的描述信息导出到文件</h3><a id="more"></a>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get namespace istio-system -o json &gt; istio-system.json</span><br></pre></td></tr></table></figure>
+<h3 id="2-修改导出文件，删除其中的spec这一项，其他保持不变"><a href="#2-修改导出文件，删除其中的spec这一项，其他保持不变" class="headerlink" title="2.修改导出文件，删除其中的spec这一项，其他保持不变"></a>2.修改导出文件，删除其中的spec这一项，其他保持不变</h3><p><img src="https://gitee.com/weizhoujie/images/raw/master/20220217141416.png"></p>
+<h3 id="3-接着运行下面命令"><a href="#3-接着运行下面命令" class="headerlink" title="3.接着运行下面命令"></a>3.接着运行下面命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl proxy --port=8081</span><br></pre></td></tr></table></figure>
+<p>如图所示</p>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20220217141747.png"></p>
+<h3 id="4-新开一个终端执行下面命令"><a href="#4-新开一个终端执行下面命令" class="headerlink" title="4.新开一个终端执行下面命令"></a>4.新开一个终端执行下面命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -k -H &quot;Content-Type:application/json&quot; -X PUT --data-binary @istio-system.json http://127.0.0.1:8081/api/v1/namespaces/istio-system/finalize</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/weizhoujie/images/raw/master/20220217142007.png"></p>
+<h3 id="5-再次查看已经删除"><a href="#5-再次查看已经删除" class="headerlink" title="5.再次查看已经删除"></a>5.再次查看已经删除</h3><p><img src="https://gitee.com/weizhoujie/images/raw/master/20220217142150.png"></p>
 
       
     </div>
@@ -490,12 +444,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2021/06/18/k8s-dashboard/">k8s dashboard超详细部署教程</a></p>
+  <p><span>本文标题:</span><a href="/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">解决kubernetes删除命名空间一直Terminating</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 魏周杰 的个人博客">魏周杰</a></p>
-  <p><span>发布时间:</span>2021年06月18日 - 15:06</p>
-  <p><span>最后更新:</span>2021年06月18日 - 16:06</p>
-  <p><span>原始链接:</span><a href="/2021/06/18/k8s-dashboard/" title="k8s dashboard超详细部署教程">http://weizhoujie.github.io/2021/06/18/k8s-dashboard/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://weizhoujie.github.io/2021/06/18/k8s-dashboard/"  aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2022年02月17日 - 14:02</p>
+  <p><span>最后更新:</span>2022年02月17日 - 14:02</p>
+  <p><span>原始链接:</span><a href="/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="解决kubernetes删除命名空间一直Terminating">http://weizhoujie.github.io/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://weizhoujie.github.io/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -539,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="next" title="k8s环境搭建">
-                <i class="fa fa-chevron-left"></i> k8s环境搭建
+              <a href="/2021/06/18/k8s-dashboard/" rel="next" title="k8s dashboard超详细部署教程">
+                <i class="fa fa-chevron-left"></i> k8s dashboard超详细部署教程
               </a>
             
           </div>
@@ -548,10 +502,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="解决kubernetes删除命名空间一直Terminating">
-                解决kubernetes删除命名空间一直Terminating <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -765,7 +715,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">2. 部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%AE%BF%E9%97%AE%E8%AE%A4%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">3.访问认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%A2%9E%E5%8A%A0%E8%B5%84%E6%BA%90%E4%BD%BF%E7%94%A8%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text">4.增加资源使用率</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%8E%B0%E5%B0%86%E8%A6%81%E5%88%A0%E9%99%A4%E7%9A%84namespace%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF%E5%AF%BC%E5%87%BA%E5%88%B0%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">1.现将要删除的namespace的描述信息导出到文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%EF%BC%8C%E5%88%A0%E9%99%A4%E5%85%B6%E4%B8%AD%E7%9A%84spec%E8%BF%99%E4%B8%80%E9%A1%B9%EF%BC%8C%E5%85%B6%E4%BB%96%E4%BF%9D%E6%8C%81%E4%B8%8D%E5%8F%98"><span class="nav-number">1.2.</span> <span class="nav-text">2.修改导出文件，删除其中的spec这一项，其他保持不变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8E%A5%E7%9D%80%E8%BF%90%E8%A1%8C%E4%B8%8B%E9%9D%A2%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">3.接着运行下面命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%96%B0%E5%BC%80%E4%B8%80%E4%B8%AA%E7%BB%88%E7%AB%AF%E6%89%A7%E8%A1%8C%E4%B8%8B%E9%9D%A2%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">4.新开一个终端执行下面命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%8D%E6%AC%A1%E6%9F%A5%E7%9C%8B%E5%B7%B2%E7%BB%8F%E5%88%A0%E9%99%A4"><span class="nav-number">1.5.</span> <span class="nav-text">5.再次查看已经删除</span></a></li></ol></li></ol></div>
             
 
           </div>
