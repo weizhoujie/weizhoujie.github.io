@@ -6,7 +6,7 @@
   <link href="http://weizhoujie.github.io/atom.xml" rel="self"/>
   
   <link href="http://weizhoujie.github.io/"/>
-  <updated>2022-02-17T06:22:30.532Z</updated>
+  <updated>2022-02-17T06:28:19.993Z</updated>
   <id>http://weizhoujie.github.io/</id>
   
   <author>
@@ -21,12 +21,14 @@
     <link href="http://weizhoujie.github.io/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     <id>http://weizhoujie.github.io/2022/02/17/k8s%E5%88%A0%E9%99%A4%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%80%E7%9B%B4Terminating%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
     <published>2022-02-17T06:16:38.000Z</published>
-    <updated>2022-02-17T06:22:30.532Z</updated>
+    <updated>2022-02-17T06:28:19.993Z</updated>
     
     
     <summary type="html">&lt;p&gt;当我们使用kubectl delete ns xxx命令删除命名空间后发现删不掉，显示是Terminating状态&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://gitee.com/weizhoujie/images/raw/master/20220217140715.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;再次尝试kubectl delete ns xxx删除&lt;br&gt;&lt;img src=&quot;https://gitee.com/weizhoujie/images/raw/master/20220217140936.png&quot;&gt;&lt;br&gt;提示删除操作未能完成，说系统会在确定没用资源后将会被自动删除&lt;/p&gt;
+&lt;p&gt; &lt;img src=&quot;https://gitee.com/weizhoujie/images/raw/master/20220217140715.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;再次尝试kubectl delete ns xxx删除&lt;/p&gt;
+&lt;p&gt; &lt;img src=&quot;https://gitee.com/weizhoujie/images/raw/master/20220217140936.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;提示删除操作未能完成，说系统会在确定没用资源后将会被自动删除&lt;/p&gt;
 &lt;h2 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h2&gt;&lt;h3 id=&quot;1-现将要删除的namespace的描述信息导出到文件&quot;&gt;&lt;a href=&quot;#1-现将要删除的namespace的描述信息导出到文件&quot; class=&quot;headerlink&quot; title=&quot;1.现将要删除的namespace的描述信息导出到文件&quot;&gt;&lt;/a&gt;1.现将要删除的namespace的描述信息导出到文件&lt;/h3&gt;</summary>
     
     
