@@ -45,13 +45,13 @@
     <link href="http://weizhoujie.github.io/2021/06/18/k8s-dashboard/"/>
     <id>http://weizhoujie.github.io/2021/06/18/k8s-dashboard/</id>
     <published>2021-06-18T07:15:05.000Z</published>
-    <updated>2021-06-18T08:53:04.451Z</updated>
+    <updated>2023-01-20T02:20:45.781Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;1-简介&quot;&gt;&lt;a href=&quot;#1-简介&quot; class=&quot;headerlink&quot; title=&quot;1. 简介&quot;&gt;&lt;/a&gt;1. 简介&lt;/h2&gt;&lt;p&gt;在 Kubernetes 社区中，有一个很受欢迎的 Dashboard 项目，它可以给用户提供一个可视化的 Web 界面来查看当前集群的各种信息。用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。&lt;/p&gt;
 &lt;p&gt;官方参考文档：&lt;br&gt;&lt;a href=&quot;https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/&quot;&gt;https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;github项目地址：&lt;br&gt;&lt;a href=&quot;https://github.com/kubernetes/dashboard&quot;&gt;https://github.com/kubernetes/dashboard&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;当前部署dashboard版本：v2.0.1，注意检查dashboard版本与kubernetes版本兼容性：&lt;br&gt;&lt;a href=&quot;https://github.com/kubernetes/dashboard/releases&quot;&gt;https://github.com/kubernetes/dashboard/releases&lt;/a&gt;&lt;/p&gt;</summary>
+&lt;p&gt;github 项目地址：&lt;br&gt;&lt;a href=&quot;https://github.com/kubernetes/dashboard&quot;&gt;https://github.com/kubernetes/dashboard&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;当前部署 dashboard 版本：v2.0.1，注意检查 dashboard 版本与 kubernetes 版本兼容性：&lt;br&gt;&lt;a href=&quot;https://github.com/kubernetes/dashboard/releases&quot;&gt;https://github.com/kubernetes/dashboard/releases&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -67,7 +67,7 @@
     <link href="http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://weizhoujie.github.io/2021/03/13/k8s%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
     <published>2021-03-13T07:37:25.000Z</published>
-    <updated>2021-05-25T07:33:13.569Z</updated>
+    <updated>2023-01-20T02:30:41.576Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;1-操作系统&quot;&gt;&lt;a href=&quot;#1-操作系统&quot; class=&quot;headerlink&quot; title=&quot;1. 操作系统&quot;&gt;&lt;/a&gt;1. 操作系统&lt;/h2&gt;&lt;ul&gt;
@@ -75,7 +75,7 @@
 &lt;p&gt;下载地址：&lt;a href=&quot;http://mirrors.sohu.com/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso&quot;&gt;http://mirrors.sohu.com/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;系统安装盘制作&lt;/p&gt;
-&lt;p&gt;采用UltraISO 制作系统盘，下载地址 &lt;a href=&quot;https://www.onlinedown.net/soft/614.htm&quot;&gt;https://www.onlinedown.net/soft/614.htm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;采用 UltraISO 制作系统盘，下载地址 &lt;a href=&quot;https://www.onlinedown.net/soft/614.htm&quot;&gt;https://www.onlinedown.net/soft/614.htm&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;制作以及安装流程：&lt;a href=&quot;https://www.cnblogs.com/zhuimengdeyuanyuan/p/13440561.html&quot;&gt;https://www.cnblogs.com/zhuimengdeyuanyuan/p/13440561.html&lt;/a&gt;&lt;/p&gt;</summary>
     
     
