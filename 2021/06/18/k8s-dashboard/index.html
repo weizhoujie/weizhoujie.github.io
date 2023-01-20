@@ -458,7 +458,7 @@
 <p>查看一下本地是否有这个镜像</p>
 <p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618161922.png"></p>
 <p>接下来就可以部署metrics-server，换成自己的文件路径</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f /usr/<span class="built_in">local</span>/k8s_pod/dashboard/metrics-server-0.3.3/deploy/1.8+/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f /usr/local/k8s_pod/dashboard/metrics-server-0.3.3/deploy/1.8+/</span><br></pre></td></tr></table></figure>
 <p>创建成功后可以使用top查看一下是否有资源信息</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl top pod -A</span><br></pre></td></tr></table></figure>
 <p> <img src="https://gitee.com/weizhoujie/images/raw/master/20210618162123.png"></p>
@@ -793,7 +793,7 @@ var jiathis_config={
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
